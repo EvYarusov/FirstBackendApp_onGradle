@@ -10,24 +10,6 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
-class Event {
-    private String name;
-    private String city;
-    public Event(String name, String city) {
-        this.name = name;
-        this.city = city;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getCity()
-    {
-        return city;
-    }
-}
-
 @Controller
 public class EventsController {
     static final ArrayList<Event> events = new ArrayList<Event>(){{

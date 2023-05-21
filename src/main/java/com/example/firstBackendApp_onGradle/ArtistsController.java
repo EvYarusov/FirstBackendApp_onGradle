@@ -10,25 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-class Artist {
-    private String name;
-    private String genre;
-
-    public Artist(String name, String genre) {
-        this.name = name;
-        this.genre = genre;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getGenre()
-    {
-        return genre;
-    }
-}
-
 @Controller
 public class ArtistsController {
     static final ArrayList<Artist> artists = new ArrayList<Artist>(){{
