@@ -1,30 +1,22 @@
 package com.example.firstBackendApp_onGradle;
 
-import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
 import lombok.*;
 
-
-@AllArgsConstructor
-@NoArgsConstructor
+@Entity
 @Getter
 @Setter
-@ToString
-@EqualsAndHashCode
-class Artist {
+@AllArgsConstructor
+@NoArgsConstructor
+public class Artist {
 
-    @Schema(description = "Name of the artist.",
-            example = "Bob Robson", required = true)
-    @NotBlank
-    @Size(max = 30)
+    @GeneratedValue // jakarta.persistence
+    @Id             // jakarta.persistence
+    private int id;
+
     private String name;
 
-
-    @Schema(description = "The genre in which the artists perform.",
-            example = "rock", required = true)
-    @NotBlank
-    @Size(max = 30)
     private String genre;
-
 }

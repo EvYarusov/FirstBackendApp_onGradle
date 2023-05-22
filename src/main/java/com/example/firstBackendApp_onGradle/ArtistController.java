@@ -11,22 +11,22 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Controller
-public class ArtistsController {
-    static final ArrayList<Artist> artists = new ArrayList<Artist>(){{
-        add(new Artist("Vanessa-Mae Vanakorn Nicholson", "violin techno-acoustic fusion"));
-        add(new Artist("Robert Nesta Marley", "reggae"));
-        add(new Artist("Kurt Donald Cobain", "alternative rock"));
-        add(new Artist("Marshall Bruce Mathers III", "hip hop music"));
+public class ArtistController {
+    static final ArrayList<ArtistDTO> ARTIST_DTOS = new ArrayList<ArtistDTO>(){{
+        add(new ArtistDTO("Vanessa-Mae Vanakorn Nicholson", "violin techno-acoustic fusion"));
+        add(new ArtistDTO("Robert Nesta Marley", "reggae"));
+        add(new ArtistDTO("Kurt Donald Cobain", "alternative rock"));
+        add(new ArtistDTO("Marshall Bruce Mathers III", "hip hop music"));
     }};
 
     @RequestMapping(value = "/artists", method = RequestMethod.GET)
     public String listArtists(@RequestParam(value = "genre", required = false, defaultValue = "all") String genre, Model model)
     {
-        List<Artist> resultArtists = artists;
+        List<ArtistDTO> resultArtistDTOS = ARTIST_DTOS;
         if (!genre.equals("all")) {
-            resultArtists = artists.stream().filter(e -> e.getGenre().equals(genre)).collect(Collectors.toList());
+            resultArtistDTOS = ARTIST_DTOS.stream().filter(e -> e.getGenre().equals(genre)).collect(Collectors.toList());
         }
-        model.addAttribute("artists", resultArtists);
+        model.addAttribute("artists", resultArtistDTOS);
         return "artistsView";
     }
 }

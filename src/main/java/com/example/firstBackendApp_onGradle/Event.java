@@ -1,30 +1,22 @@
 package com.example.firstBackendApp_onGradle;
 
-import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
 import lombok.*;
 
-@AllArgsConstructor
-@NoArgsConstructor
+@Entity
 @Getter
 @Setter
-@ToString
-@EqualsAndHashCode
+@AllArgsConstructor
+@NoArgsConstructor
 public class Event {
 
-    @Schema(description = "Name of the event",
-            example = "Concert",
-            required = true)
-    @NotBlank
-    @Size(max = 50)
-    private String name;
+    @GeneratedValue
+    @Id
+    private int id;
 
-    @Schema(description = "Location of the event",
-            example = "Berlin",
-            required = true)
-    @NotBlank
-    @Size(max = 30)
+    private String title;
+
     private String city;
-
 }
