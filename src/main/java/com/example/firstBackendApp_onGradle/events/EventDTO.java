@@ -1,4 +1,4 @@
-package com.example.firstBackendApp_onGradle;
+package com.example.firstBackendApp_onGradle.events;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
@@ -18,7 +18,7 @@ public class EventDTO {
             required = true)
     @NotBlank
     @Size(max = 50)
-    private String name;
+    private String title;
 
     @Schema(description = "Location of the event",
             example = "Berlin",

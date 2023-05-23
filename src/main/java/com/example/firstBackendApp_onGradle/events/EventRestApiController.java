@@ -1,4 +1,4 @@
-package com.example.firstBackendApp_onGradle;
+package com.example.firstBackendApp_onGradle.events;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -27,7 +27,7 @@ public class EventRestApiController {
     public List<EventDTO> listEvents(@RequestParam(
             value = "city", required = false, defaultValue = "all") String city, Model model) {
         
-        return eventService.getAllEvents(city);
+        return eventService.getEvents(city);
     }
     
     @Operation(summary = "Get event by ID.", description = "Get specific event by entering event ID.")
@@ -54,7 +54,7 @@ public class EventRestApiController {
 
     @Operation(summary = "Add new event.", description = "Add new event by entering object fields.")
     @PostMapping
-    public EventDTO createEvent(@RequestBody EventDTO eventDTO) {
+    public int createEvent(@RequestBody EventDTO eventDTO) {
 
         return eventService.createNewEvent(eventDTO);
     }

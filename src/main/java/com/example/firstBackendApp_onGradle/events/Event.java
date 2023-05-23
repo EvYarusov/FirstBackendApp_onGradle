@@ -1,11 +1,11 @@
-package com.example.firstBackendApp_onGradle;
+package com.example.firstBackendApp_onGradle.events;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import lombok.*;
 
-@Entity
+@Entity // Now class mapped to database table
 @Getter
 @Setter
 @AllArgsConstructor

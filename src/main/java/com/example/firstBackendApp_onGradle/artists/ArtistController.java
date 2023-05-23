@@ -1,4 +1,4 @@
-package com.example.firstBackendApp_onGradle;
+package com.example.firstBackendApp_onGradle.artists;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 
 @Controller
 public class ArtistController {
+
     static final ArrayList<ArtistDTO> ARTIST_DTOS = new ArrayList<ArtistDTO>(){{
         add(new ArtistDTO("Vanessa-Mae Vanakorn Nicholson", "violin techno-acoustic fusion"));
         add(new ArtistDTO("Robert Nesta Marley", "reggae"));

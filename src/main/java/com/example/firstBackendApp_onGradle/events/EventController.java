@@ -1,4 +1,4 @@
-package com.example.firstBackendApp_onGradle;
+package com.example.firstBackendApp_onGradle.events;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

@@ -1,4 +1,4 @@
-package com.example.firstBackendApp_onGradle;
+package com.example.firstBackendApp_onGradle.artists;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
