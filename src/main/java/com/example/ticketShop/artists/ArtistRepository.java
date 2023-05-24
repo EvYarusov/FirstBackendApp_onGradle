@@ -1,4 +1,4 @@
-package com.example.firstBackendApp_onGradle.artists;
+package com.example.ticketShop.artists;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;

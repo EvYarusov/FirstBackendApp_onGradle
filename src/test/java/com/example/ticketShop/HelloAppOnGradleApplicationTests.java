@@ -1,4 +1,4 @@
-package com.example.firstBackendApp_onGradle;
+package com.example.ticketShop;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

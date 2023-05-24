@@ -1,4 +1,4 @@
-package com.example.firstBackendApp_onGradle.events;
+package com.example.ticketShop.events;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;

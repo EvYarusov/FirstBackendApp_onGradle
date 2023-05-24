@@ -1,4 +1,4 @@
-package com.example.firstBackendApp_onGradle.artists;
+package com.example.ticketShop.artists;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -53,9 +53,9 @@ public class ArtistRestApiController {
     @Operation(summary = "Update artist fields.",
             description = "Update artist fields by entering new values.")
     @PutMapping(value = "/{artistId}")
-    public List<ArtistDTO> updateArtist(@PathVariable int artistId,
+    public void updateArtist(@PathVariable int artistId,
                                         @RequestBody ArtistDTO newArtistDTO) {
 
-        return artistService.updateArtistById(artistId, newArtistDTO);
+        artistService.updateArtistById(artistId, newArtistDTO);
     }
 }

@@ -1,13 +1,10 @@
-package com.example.firstBackendApp_onGradle.artists;
+package com.example.ticketShop.artists;
 
-import com.example.firstBackendApp_onGradle.events.Event;
-import com.example.firstBackendApp_onGradle.events.EventDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class ArtistService {
@@ -19,12 +16,12 @@ public class ArtistService {
         this.artistRepository = artistRepository;
     }
 
-    static final ArrayList<ArtistDTO> ARTISTS = new ArrayList<ArtistDTO>() {{
+    /*static final ArrayList<ArtistDTO> ARTISTS = new ArrayList<ArtistDTO>() {{
         add(new ArtistDTO("Vanessa-Mae Vanakorn Nicholson", "violin techno-acoustic fusion"));
         add(new ArtistDTO("Robert Nesta Marley", "reggae"));
         add(new ArtistDTO("Kurt Donald Cobain", "alternative rock"));
         add(new ArtistDTO("Marshall Bruce Mathers III", "hip hop music"));
-    }};
+    }};*/
 
     public int addNewArtist(ArtistDTO newArtistDTO) {
 
@@ -59,25 +56,34 @@ public class ArtistService {
 
     public ArtistDTO getArtistById(int artistId) {
 
-        ArtistDTO artistDTO = ARTISTS.get(artistId);
+        //TODO add the handling of exception
+        Artist artist = artistRepository.findById(artistId).get();
+
+        ArtistDTO artistDTO = new ArtistDTO();
+        artistDTO.setName(artist.getName());
+        artistDTO.setGenre(artist.getGenre());
 
         return artistDTO;
     }
 
     public ArtistDTO deleteArtistById(int artistId) {
 
-        ArtistDTO artistDTO = ARTISTS.get(artistId);
-        ARTISTS.remove(artistId);
+        ArtistDTO artistDTO = getArtistById(artistId);
+
+        artistRepository.deleteById(artistId);
 
         return artistDTO;
     }
 
-    public List<ArtistDTO> updateArtistById(int artistId, ArtistDTO newArtistDTO) {
+    public void updateArtistById(int artistId, ArtistDTO newArtistDTO) {
 
-        //TODO: add real update artist in database
-        ARTISTS.remove(artistId);
-        ARTISTS.add(artistId, newArtistDTO);
+        //TODO add the handling of exception
+        Artist artist = artistRepository.findById(artistId).get();
 
-        return ARTISTS;
+        artist.setName(newArtistDTO.getName());
+        artist.setGenre(newArtistDTO.getGenre());
+
+        artistRepository.save(artist);
+
     }
 }

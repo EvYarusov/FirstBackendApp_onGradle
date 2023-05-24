@@ -1,4 +1,4 @@
-package com.example.firstBackendApp_onGradle.events;
+package com.example.ticketShop.events;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -47,9 +47,9 @@ public class EventRestApiController {
 
     @Operation(summary = "Update event fields.", description = "Update event fields by entering new values.")
     @PutMapping(value = "/{eventId}")
-    public EventDTO updateEvent(@PathVariable int eventId, @RequestBody EventDTO newEventDTO) {
+    public void updateEvent(@PathVariable int eventId, @RequestBody EventDTO newEventDTO) {
 
-        return eventService.updateEventById(eventId, newEventDTO);
+        eventService.updateEventById(eventId, newEventDTO);
     }
 
     @Operation(summary = "Add new event.", description = "Add new event by entering object fields.")

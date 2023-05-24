@@ -1,4 +1,4 @@
-package com.example.firstBackendApp_onGradle.artists;
+package com.example.ticketShop.artists;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
@@ -15,7 +15,7 @@ import lombok.*;
 class ArtistDTO {
 
     @Schema(description = "Name of the artist.",
-            example = "Bob Robson", required = true)
+            example = "Bob Dylan", required = true)
     @NotBlank
     @Size(max = 30)
     private String name;

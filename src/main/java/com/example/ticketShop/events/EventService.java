@@ -1,11 +1,11 @@
-package com.example.firstBackendApp_onGradle.events;
+package com.example.ticketShop.events;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 
 @Service
@@ -18,12 +18,12 @@ public class EventService {
         this.eventRepository = eventRepository;
     }
 
-    static final ArrayList<EventDTO> EVENTS = new ArrayList<EventDTO>() {{
+    /*static final ArrayList<EventDTO> EVENTS = new ArrayList<EventDTO>() {{
         add(new EventDTO("Violin concert", "Prague"));
         add(new EventDTO("Jazz concert", "Berlin"));
         add(new EventDTO("Art exhibition", "London"));
         add(new EventDTO("Opera", "London"));
-    }};
+    }};*/
 
     public int createNewEvent(EventDTO eventDTO) {
 
@@ -56,28 +56,52 @@ public class EventService {
 
     }
 
-    public EventDTO getEventById(int eventId) {
+    public EventDTO getEventById(int eventId)
+    {
+        EventDTO eventDTO = new EventDTO();
 
-        EventDTO eventDTO = EVENTS.get(eventId);
+        Optional<Event> eventOptional = eventRepository.findById(eventId);
+        // Optional has 2 states:
+        // 1. I`m empty. I have no value.
+        // 2. Has value
 
+        Event event = eventOptional.get(); // Exception if data not found
+        eventDTO.setTitle(event.getTitle());
+        eventDTO.setCity(event.getCity());
         return eventDTO;
+
+        //TODO finish the handling of exception
+        /*if (eventOptional.isPresent())
+        {
+            Event event = eventOptional.get();
+            eventDTO.setTitle(event.getTitle());
+            eventDTO.setCity(event.getCity());
+            return eventDTO;
+        }
+        else
+        {
+            return eventOptional.;
+        }*/
     }
 
     public EventDTO deleteEventById(int eventId) {
 
-        //TODO: add real remove
-        EventDTO eventDTO = EVENTS.get(eventId);
+        EventDTO eventDTO = getEventById(eventId);
+
+        eventRepository.deleteById(eventId);
 
         return eventDTO;
     }
 
-    public EventDTO updateEventById(int eventId, EventDTO newEventDTO) {
+    public void updateEventById(int eventId, EventDTO newEventDTO) {
 
-        EventDTO eventDTO = EVENTS.get(eventId);
-        //TODO: update event in database
-        eventDTO = newEventDTO; // useless. just for example
+        //TODO add the handling of exception
+        Event event = eventRepository.findById(eventId).get();
 
-        return eventDTO;
+        event.setTitle(newEventDTO.getTitle());
+        event.setCity(newEventDTO.getCity());
+
+        eventRepository.save(event);
     }
 
 }
