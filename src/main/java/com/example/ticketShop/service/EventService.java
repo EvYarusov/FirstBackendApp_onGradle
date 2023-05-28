@@ -1,5 +1,8 @@
-package com.example.ticketShop.events;
+package com.example.ticketShop.service;
 
+import com.example.ticketShop.entity.Event;
+import com.example.ticketShop.dto.EventDTO;
+import com.example.ticketShop.repository.EventRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

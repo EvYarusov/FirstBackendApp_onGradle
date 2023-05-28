@@ -1,5 +1,6 @@
-package com.example.ticketShop.artists;
+package com.example.ticketShop.repository;
 
+import com.example.ticketShop.entity.Artist;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,4 +1,4 @@
-package com.example.ticketShop.artists;
+package com.example.ticketShop.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

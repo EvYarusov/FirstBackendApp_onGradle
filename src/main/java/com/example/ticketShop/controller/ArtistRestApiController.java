@@ -1,5 +1,7 @@
-package com.example.ticketShop.artists;
+package com.example.ticketShop.controller;
 
+import com.example.ticketShop.dto.ArtistDTO;
+import com.example.ticketShop.service.ArtistService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;

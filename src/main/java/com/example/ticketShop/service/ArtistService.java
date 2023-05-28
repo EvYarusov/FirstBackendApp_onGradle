@@ -1,5 +1,8 @@
-package com.example.ticketShop.artists;
+package com.example.ticketShop.service;
 
+import com.example.ticketShop.entity.Artist;
+import com.example.ticketShop.dto.ArtistDTO;
+import com.example.ticketShop.repository.ArtistRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,8 +1,7 @@
-package com.example.ticketShop.events;
+package com.example.ticketShop.repository;
 
+import com.example.ticketShop.entity.Event;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
 
