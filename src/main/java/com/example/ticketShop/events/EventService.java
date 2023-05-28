@@ -1,5 +1,6 @@
 package com.example.ticketShop.events;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,66 +10,53 @@ import java.util.Optional;
 
 
 @Service
-public class EventService {
+public class EventService
+{
+    private static final ModelMapper modelMapper = new ModelMapper();
 
     private EventRepository eventRepository;
 
     @Autowired
-    public void setEventRepository(EventRepository eventRepository) {
+    public void setEventRepository(EventRepository eventRepository)
+    {
         this.eventRepository = eventRepository;
     }
 
-    /*static final ArrayList<EventDTO> EVENTS = new ArrayList<EventDTO>() {{
-        add(new EventDTO("Violin concert", "Prague"));
-        add(new EventDTO("Jazz concert", "Berlin"));
-        add(new EventDTO("Art exhibition", "London"));
-        add(new EventDTO("Opera", "London"));
-    }};*/
-
-    public int createNewEvent(EventDTO eventDTO) {
-
-        String title = eventDTO.getTitle();
-        String city = eventDTO.getCity();
-
-        Event event = new Event();
-        event.setTitle(title);
-        event.setCity(city);
+    public int createNewEvent(EventDTO eventDTO)
+    {
+        // Put data from eventDTO to Event(entity) for DB
+        // 1 argument: eventDTO - source(источник)
+        // 2 argument: destination object class. В объект какого класса положить данные
+        Event event = modelMapper.map(eventDTO, Event.class);
 
         int id = eventRepository.save(event).getId();
 
         return id;
     }
 
-    public List<EventDTO> getEvents(String city) {
-
+    public List<EventDTO> getEvents(String city)
+    {
         Iterable<Event> allEvents = eventRepository.findAll();
 
-        List<EventDTO> result = new ArrayList<>();
+        List<EventDTO> resultList = new ArrayList<>();
         for (Event event : allEvents)
         {
-            if (city.equalsIgnoreCase("all") ^ event.getCity().equalsIgnoreCase(city))
+            if (city.equalsIgnoreCase("all") ^
+                    event.getCity().equalsIgnoreCase(city))
             {
-                EventDTO eventDTO = new EventDTO(event.getTitle(), event.getCity());
-                result.add(eventDTO);
+                EventDTO eventDTO = modelMapper.map(event,EventDTO.class);
+                resultList.add(eventDTO);
             }
         }
-        return result;
-
+        return resultList;
     }
 
     public EventDTO getEventById(int eventId)
     {
-        EventDTO eventDTO = new EventDTO();
-
         Optional<Event> eventOptional = eventRepository.findById(eventId);
-        // Optional has 2 states:
-        // 1. I`m empty. I have no value.
-        // 2. Has value
 
         Event event = eventOptional.get(); // Exception if data not found
-        eventDTO.setTitle(event.getTitle());
-        eventDTO.setCity(event.getCity());
-        return eventDTO;
+        EventDTO eventDTO = modelMapper.map(event,EventDTO.class);
 
         //TODO finish the handling of exception
         /*if (eventOptional.isPresent())
@@ -82,10 +70,11 @@ public class EventService {
         {
             return eventOptional.;
         }*/
+        return eventDTO;
     }
 
-    public EventDTO deleteEventById(int eventId) {
-
+    public EventDTO deleteEventById(int eventId)
+    {
         EventDTO eventDTO = getEventById(eventId);
 
         eventRepository.deleteById(eventId);
@@ -93,8 +82,8 @@ public class EventService {
         return eventDTO;
     }
 
-    public void updateEventById(int eventId, EventDTO newEventDTO) {
-
+    public void updateEventById(int eventId, EventDTO newEventDTO)
+    {
         //TODO add the handling of exception
         Event event = eventRepository.findById(eventId).get();
 

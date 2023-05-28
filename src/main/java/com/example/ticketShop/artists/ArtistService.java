@@ -1,73 +1,66 @@
 package com.example.ticketShop.artists;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
+
 @Service
-public class ArtistService {
+public class ArtistService
+{
+    private static final ModelMapper modelMapper = new ModelMapper();
 
     private ArtistRepository artistRepository;
 
     @Autowired
-    public void setArtistRepository(ArtistRepository artistRepository) {
+    public void setArtistRepository(ArtistRepository artistRepository)
+    {
         this.artistRepository = artistRepository;
     }
 
-    /*static final ArrayList<ArtistDTO> ARTISTS = new ArrayList<ArtistDTO>() {{
-        add(new ArtistDTO("Vanessa-Mae Vanakorn Nicholson", "violin techno-acoustic fusion"));
-        add(new ArtistDTO("Robert Nesta Marley", "reggae"));
-        add(new ArtistDTO("Kurt Donald Cobain", "alternative rock"));
-        add(new ArtistDTO("Marshall Bruce Mathers III", "hip hop music"));
-    }};*/
-
-    public int addNewArtist(ArtistDTO newArtistDTO) {
-
-        String name = newArtistDTO.getName();
-        String genre = newArtistDTO.getGenre();
-
-        Artist artist = new Artist();
-        artist.setName(name);
-        artist.setGenre(genre);
+    public int addNewArtist(ArtistDTO newArtistDTO)
+    {
+        Artist artist = modelMapper.map(newArtistDTO, Artist.class);
 
         int id = artistRepository.save(artist).getId();
 
         return id;
     }
 
-    public List<ArtistDTO> getArtists(String genre) {
-
+    public List<ArtistDTO> getArtists(String genre)
+    {
         Iterable<Artist> allArtists = artistRepository.findAll();
 
-        List<ArtistDTO> result = new ArrayList<>();
+        List<ArtistDTO> resultList = new ArrayList<>();
         for (Artist artist : allArtists)
         {
-            if(artist.getGenre().equalsIgnoreCase(genre) ^ genre.equalsIgnoreCase("all"))
+            if(artist.getGenre()
+                    .equalsIgnoreCase(genre) ^ genre
+                    .equalsIgnoreCase("all"))
             {
-            ArtistDTO artistDTO = new ArtistDTO(artist.getName(), artist.getGenre());
-            result.add(artistDTO);
+                ArtistDTO artistDTO = modelMapper.map(artist, ArtistDTO.class);
+                resultList.add(artistDTO);
             }
         }
-        return result;
 
+        return resultList;
     }
 
-    public ArtistDTO getArtistById(int artistId) {
-
+    public ArtistDTO getArtistById(int artistId)
+    {
         //TODO add the handling of exception
         Artist artist = artistRepository.findById(artistId).get();
 
-        ArtistDTO artistDTO = new ArtistDTO();
-        artistDTO.setName(artist.getName());
-        artistDTO.setGenre(artist.getGenre());
+        ArtistDTO artistDTO = modelMapper.map(artist, ArtistDTO.class);
 
         return artistDTO;
     }
 
-    public ArtistDTO deleteArtistById(int artistId) {
-
+    public ArtistDTO deleteArtistById(int artistId)
+    {
         ArtistDTO artistDTO = getArtistById(artistId);
 
         artistRepository.deleteById(artistId);
@@ -75,8 +68,8 @@ public class ArtistService {
         return artistDTO;
     }
 
-    public void updateArtistById(int artistId, ArtistDTO newArtistDTO) {
-
+    public void updateArtistById(int artistId, ArtistDTO newArtistDTO)
+    {
         //TODO add the handling of exception
         Artist artist = artistRepository.findById(artistId).get();
 
@@ -84,6 +77,6 @@ public class ArtistService {
         artist.setGenre(newArtistDTO.getGenre());
 
         artistRepository.save(artist);
-
     }
+
 }
