@@ -1,5 +1,6 @@
-package com.example.ticketShop.artists;
+package com.example.ticketShop.artist;
 
+import com.example.ticketShop.genre.GenreDTO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -12,7 +13,7 @@ import lombok.*;
 @Setter
 @ToString
 @EqualsAndHashCode
-class ArtistDTO {
+public class ArtistDTO {
 
     @Schema(description = "Name of the artist.",
             example = "Bob Dylan", required = true)
@@ -20,11 +21,6 @@ class ArtistDTO {
     @Size(max = 30)
     private String name;
 
-
-    @Schema(description = "The genre in which the artists perform.",
-            example = "rock", required = true)
-    @NotBlank
-    @Size(max = 30)
-    private String genre;
+    private GenreDTO genre;
 
 }

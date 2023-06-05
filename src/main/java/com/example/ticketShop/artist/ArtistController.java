@@ -1,4 +1,4 @@
-package com.example.ticketShop.artists;
+package com.example.ticketShop.artist;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "rest-api-artists")
+@RequestMapping(value = "artists")
 @Tag(name = "Artists", description = "Working with artists")
-public class ArtistRestApiController {
+public class ArtistController {
 
     private ArtistService artistService;
 
@@ -45,7 +45,7 @@ public class ArtistRestApiController {
 
     @Operation(summary = "Add new artist.")
     @PostMapping
-    public int addArtist(@RequestBody ArtistDTO newArtistDTO) {
+    public int addArtist(@RequestBody NewArtistDTO newArtistDTO) {
 
         return artistService.addNewArtist(newArtistDTO);
     }
@@ -54,7 +54,7 @@ public class ArtistRestApiController {
             description = "Update artist fields by entering new values.")
     @PutMapping(value = "/{artistId}")
     public void updateArtist(@PathVariable int artistId,
-                                        @RequestBody ArtistDTO newArtistDTO) {
+                                        @RequestBody NewArtistDTO newArtistDTO) {
 
         artistService.updateArtistById(artistId, newArtistDTO);
     }
