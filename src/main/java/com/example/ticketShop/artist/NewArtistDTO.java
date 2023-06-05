@@ -14,8 +14,8 @@ import lombok.*;
 @Setter
 @ToString
 @EqualsAndHashCode
-public class NewArtistDTO {
-
+public class NewArtistDTO
+{
     @Schema(description = "Name of the artist.",
             example = "Bob Dylan", required = true)
     @NotBlank

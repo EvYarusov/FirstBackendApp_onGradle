@@ -1,5 +1,6 @@
 package com.example.ticketShop.event;
 
+import com.example.ticketShop.artist.Artist;
 import com.example.ticketShop.place.Place;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -10,6 +11,7 @@ import lombok.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "events")
 public class Event {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,4 +25,9 @@ public class Event {
     @NotNull
     @ManyToOne
     private Place place; // column place_id --> place.id
+
+    @NotNull
+    @ManyToOne
+    @JoinColumn(name = "artist_id", referencedColumnName = "id")
+    private Artist artist;
 }

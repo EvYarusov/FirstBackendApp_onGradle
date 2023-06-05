@@ -1,5 +1,7 @@
 package com.example.ticketShop.event;
 
+import com.example.ticketShop.artist.Artist;
+import com.example.ticketShop.artist.ArtistRepository;
 import com.example.ticketShop.place.Place;
 import com.example.ticketShop.place.PlaceRepository;
 import com.example.ticketShop.place.PlaceService;
@@ -18,9 +20,16 @@ public class EventService
 {
     private static final ModelMapper modelMapper = new ModelMapper();
 
+    private ArtistRepository artistRepository;
     private PlaceRepository placeRepository;
 
     private EventRepository eventRepository;
+
+    @Autowired
+    public void setArtistRepository(ArtistRepository artistRepository)
+    {
+        this.artistRepository = artistRepository;
+    }
 
     @Autowired
     public void setPlaceRepository(PlaceRepository placeRepository)
@@ -34,29 +43,19 @@ public class EventService
         this.eventRepository = eventRepository;
     }
 
-    /*public int createNewEvent(EventDTO eventDTO)
-    {
-        Event event = modelMapper.map(eventDTO, Event.class);
-
-        int id = eventRepository.save(event).getId();
-
-        return id;
-    }*/
     public int createNewEvent(NewEventDTO newEventDTO)
     {
         int placeID = newEventDTO.getPlaceId();
-
-        // Get entity Place
         Place place = placeRepository.findById(placeID).get();
 
-        // New entity Event
+        int artistId = newEventDTO.getArtistId();
+        Artist artist = artistRepository.findById(artistId).get();
+
         Event event = new Event();
         event.setTitle(newEventDTO.getTitle());
-
-        // Add place to Event
         event.setPlace(place);
+        event.setArtist(artist);
 
-        // Save to Database
         int id = eventRepository.save(event).getId();
 
         return id;
@@ -108,13 +107,16 @@ public class EventService
     {
         //TODO add the handling of exception
         Event event = eventRepository.findById(eventId).get();
-
         event.setTitle(newEventDTO.getTitle());
 
         int placeId = newEventDTO.getPlaceId();
         Place place = placeRepository.findById(placeId).get();
 
+        int artistId = newEventDTO.getArtistId();
+        Artist artist = artistRepository.findById(artistId).get();
+
         event.setPlace(place);
+        event.setArtist(artist);
 
         eventRepository.save(event);
     }
@@ -125,9 +127,22 @@ public class EventService
 
         List<Event> eventsList = place.getEvents();
 
-        List<EventDTO> eventDtoList = modelMapper.map(eventsList,
-                new TypeToken<List<EventDTO>>(){}.getType());
+        List<EventDTO> eventDtoList = modelMapper.map(
+                eventsList, new TypeToken<List<EventDTO>>(){}.getType()
+        );
 
         return eventDtoList;
+    }
+
+    public List<EventDTO> getEventsByArtistId(int artistId)
+    {
+        Artist artist = artistRepository.findById(artistId).get();
+
+        List<Event> eventList = artist.getEvents();
+
+        List<EventDTO> eventDTOList = modelMapper.map(
+                eventList, new TypeToken<List<EventDTO>>(){}.getType()
+        );
+        return eventDTOList;
     }
 }

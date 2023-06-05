@@ -9,9 +9,10 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class GenreDTO {
-
+public class GenreDTO
+{
     private int id;
 
     private String name;
+
 }

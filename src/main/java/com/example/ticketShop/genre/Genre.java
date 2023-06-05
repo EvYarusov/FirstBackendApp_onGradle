@@ -12,8 +12,8 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Genre {
-
+public class Genre
+{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) //mysql: auto_increment
     private int id;

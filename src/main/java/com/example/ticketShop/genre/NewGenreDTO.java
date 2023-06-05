@@ -6,7 +6,8 @@ import lombok.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class NewGenreDTO {
-
+public class NewGenreDTO
+{
     private String name;
+
 }

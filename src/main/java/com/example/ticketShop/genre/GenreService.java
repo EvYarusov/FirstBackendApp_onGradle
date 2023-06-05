@@ -5,8 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class GenreService {
-
+public class GenreService
+{
     private static final ModelMapper modelMapper = new ModelMapper();
 
     private GenreRepository genreRepository;
@@ -35,4 +35,5 @@ public class GenreService {
 
         return genreDTO;
     }
+
 }

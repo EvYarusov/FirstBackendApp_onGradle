@@ -43,4 +43,5 @@ public class GenreController
     {
         return artistService.getArtistsByGenreId(genreId);
     }
+
 }

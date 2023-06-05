@@ -22,7 +22,8 @@ public class ArtistService
     private ArtistRepository artistRepository;
 
     @Autowired
-    public void setGenreRepository(GenreRepository genreRepository) {
+    public void setGenreRepository(GenreRepository genreRepository)
+    {
         this.genreRepository = genreRepository;
     }
 
@@ -32,10 +33,11 @@ public class ArtistService
         this.artistRepository = artistRepository;
     }
 
-    public int addNewArtist(NewArtistDTO newArtistDTO)
+    public int createNewArtist(NewArtistDTO newArtistDTO)
     {
         int genreId = newArtistDTO.getGenreId();
 
+        //TODO add the handling of exception
         Genre genre = genreRepository.findById(genreId).get();
 
         Artist artist = new Artist();
