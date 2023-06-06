@@ -22,6 +22,8 @@ public class NewArtistDTO
     @Size(max = 30)
     private String name;
 
+    @Schema(description = "Genre Id from the table genres.",
+            example = "1", required = true)
     @NotNull
     private int genreId;
 

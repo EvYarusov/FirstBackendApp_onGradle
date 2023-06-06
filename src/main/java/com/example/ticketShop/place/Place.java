@@ -1,5 +1,6 @@
 package com.example.ticketShop.place;
 
+import com.example.ticketShop.artist.Artist;
 import com.example.ticketShop.event.Event;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -12,6 +13,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "places")
 public class Place
 {
     @Id
@@ -29,4 +31,8 @@ public class Place
 
     @OneToMany(mappedBy = "place")
     private List<Event> events;
+
+    @ManyToMany(mappedBy = "places")
+    private List<Artist> artists;
+
 }

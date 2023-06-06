@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-
 @Service
 public class EventService
 {
@@ -22,7 +21,6 @@ public class EventService
 
     private ArtistRepository artistRepository;
     private PlaceRepository placeRepository;
-
     private EventRepository eventRepository;
 
     @Autowired
@@ -30,13 +28,11 @@ public class EventService
     {
         this.artistRepository = artistRepository;
     }
-
     @Autowired
     public void setPlaceRepository(PlaceRepository placeRepository)
     {
         this.placeRepository = placeRepository;
     }
-
     @Autowired
     public void setEventRepository(EventRepository eventRepository)
     {

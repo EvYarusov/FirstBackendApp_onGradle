@@ -1,17 +1,27 @@
 package com.example.ticketShop.place;
 
+import com.example.ticketShop.artist.Artist;
+import com.example.ticketShop.artist.ArtistRepository;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
 public class PlaceService
 {
     private static final ModelMapper modelMapper = new ModelMapper();
+    private ArtistRepository artistRepository;
     private PlaceRepository placeRepository;
 
+    @Autowired
+    public void setArtistRepository(ArtistRepository artistRepository)
+    {
+        this.artistRepository = artistRepository;
+    }
     @Autowired
     public void setPlaceRepository(PlaceRepository placeRepository)
     {
@@ -27,8 +37,8 @@ public class PlaceService
         return id;
     }
 
-    public PlaceDTO getPlaceById(int placeId) {
-
+    public PlaceDTO getPlaceById(int placeId)
+    {
         //TODO add the handling of exception
         Optional<Place> placeOptional = placeRepository.findById(placeId);
 
@@ -37,5 +47,18 @@ public class PlaceService
         PlaceDTO placeDTO = modelMapper.map(place, PlaceDTO.class);
 
         return placeDTO;
+    }
+
+    public List<PlaceDTO> getPlacesByArtistId(int artistId)
+    {
+        Artist artist = artistRepository.findById(artistId).get();
+
+        List<Place> placeList = artist.getPlaces();
+
+        List<PlaceDTO> placeDTOList = modelMapper.map(
+                placeList, new TypeToken<List<PlaceDTO>>() {
+                }.getType()
+        );
+        return placeDTOList;
     }
 }

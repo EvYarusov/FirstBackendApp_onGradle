@@ -2,6 +2,7 @@ package com.example.ticketShop.artist;
 
 import com.example.ticketShop.event.Event;
 import com.example.ticketShop.genre.Genre;
+import com.example.ticketShop.place.Place;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -30,4 +31,12 @@ public class Artist
 
     @OneToMany(mappedBy = "artist")
     private List<Event> events;
+
+    @ManyToMany
+    @JoinTable(
+            name = "events",
+            joinColumns = @JoinColumn(name = "artist_id"),
+            inverseJoinColumns = @JoinColumn(name = "place_id")
+    )
+    private List<Place> places;
 }

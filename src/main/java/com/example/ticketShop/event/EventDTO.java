@@ -1,5 +1,6 @@
 package com.example.ticketShop.event;
 
+import com.example.ticketShop.artist.ArtistDTO;
 import com.example.ticketShop.place.PlaceDTO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
@@ -21,6 +22,12 @@ public class EventDTO {
     @Size(max = 50)
     private String title;
 
+    @Schema(description = "Place of the event.",
+            required = true)
     private PlaceDTO place;
+
+    @Schema(description = "Headliner of the event.",
+            required = true)
+    private ArtistDTO artist;
 
 }

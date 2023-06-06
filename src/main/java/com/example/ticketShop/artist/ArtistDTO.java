@@ -21,6 +21,8 @@ public class ArtistDTO
     @Size(max = 30)
     private String name;
 
+    @Schema(description = "Genre of the artist.",
+            required = true)
     private GenreDTO genre;
 
 }

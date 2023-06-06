@@ -2,6 +2,8 @@ package com.example.ticketShop.artist;
 
 import com.example.ticketShop.genre.Genre;
 import com.example.ticketShop.genre.GenreRepository;
+import com.example.ticketShop.place.Place;
+import com.example.ticketShop.place.PlaceRepository;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.modelmapper.internal.bytebuddy.description.method.MethodDescription;
@@ -17,9 +19,15 @@ public class ArtistService
 {
     private static final ModelMapper modelMapper = new ModelMapper();
 
+    private PlaceRepository placeRepository;
     private GenreRepository genreRepository;
-
     private ArtistRepository artistRepository;
+
+    @Autowired
+    public void setPlaceRepository(PlaceRepository placeRepository)
+    {
+        this.placeRepository = placeRepository;
+    }
 
     @Autowired
     public void setGenreRepository(GenreRepository genreRepository)
@@ -101,6 +109,18 @@ public class ArtistService
         Genre genre = genreRepository.findById(genreId).get();
 
         List<Artist> artistList = genre.getArtists();
+
+        List<ArtistDTO> artistDTOList = modelMapper.map(
+                artistList, new TypeToken<List<ArtistDTO>>(){}.getType()
+        );
+        return artistDTOList;
+    }
+
+    public List<ArtistDTO> getArtistsByPlaceId(int placeId)
+    {
+        Place place = placeRepository.findById(placeId).get();
+
+        List<Artist> artistList = place.getArtists();
 
         List<ArtistDTO> artistDTOList = modelMapper.map(
                 artistList, new TypeToken<List<ArtistDTO>>(){}.getType()
