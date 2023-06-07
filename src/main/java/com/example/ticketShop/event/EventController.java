@@ -22,14 +22,23 @@ public class EventController
         this.eventService = eventService;
     }
 
-    @Operation(summary = "Get all events.",
+    @Operation(summary = "Get events by city.",
             description = "Get all events filtered by city.")
     @GetMapping
     //@ResponseBody
-    public List<EventDTO> listEvents(@RequestParam(
+    public List<EventDTO> getEventsByCity(@RequestParam(
             value = "city", required = false, defaultValue = "all") String city, Model model)
     {
-        return eventService.getEvents(city);
+        return eventService.getEventsByCity(city);
+    }
+
+    @Operation(summary = "Get events by genre.",
+            description = "Get all events filtered by genre name.")
+    @GetMapping(value = "/by_genre")
+    public List<EventDTO> getEventsByGenre(@RequestParam(
+            value = "genre", required = false, defaultValue = "all") String genre, Model model)
+    {
+        return eventService.getEventsByGenre(genre);
     }
     
     @Operation(summary = "Get event by ID.",

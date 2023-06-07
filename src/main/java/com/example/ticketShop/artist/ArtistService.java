@@ -58,16 +58,26 @@ public class ArtistService
         return id;
     }
 
-    public List<ArtistDTO> getArtists(String genreFilter)
+    public List<ArtistDTO> getArtistsByGenreName(String genreName)
     {
-        //TODO add the genreFilter
-        List<Artist> allArtists = artistRepository.findAll();
+        List<Artist> artistList = new ArrayList<>();
 
-        List<ArtistDTO> resultList = modelMapper.map(
-                allArtists, new TypeToken<List<ArtistDTO>>(){}.getType()
+        if(genreName.equalsIgnoreCase("all"))
+        {
+            //TODO add the genreFilter
+            artistList = artistRepository.findAll();
+        }
+        else
+        {
+            artistList = artistRepository
+                    .findArtistsFilteredByGenreName(genreName);
+        }
+
+        List<ArtistDTO> artistDTOList = modelMapper.map(
+                artistList, new TypeToken<List<ArtistDTO>>(){}.getType()
         );
 
-        return resultList;
+        return artistDTOList;
     }
 
     public ArtistDTO getArtistById(int artistId)

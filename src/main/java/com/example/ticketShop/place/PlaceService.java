@@ -51,6 +51,7 @@ public class PlaceService
 
     public List<PlaceDTO> getPlacesByArtistId(int artistId)
     {
+        //TODO add the handling of exception
         Artist artist = artistRepository.findById(artistId).get();
 
         List<Place> placeList = artist.getPlaces();
@@ -61,4 +62,28 @@ public class PlaceService
         );
         return placeDTOList;
     }
+
+    public List<PlaceDTO> getPlacesByCityName(String city)
+    {
+        List<Place> placeList = placeRepository.findPlacesByCity(city);
+
+        List<PlaceDTO> placeDTOList = modelMapper.map(
+                placeList, new TypeToken<List<PlaceDTO>>() {
+                }.getType()
+        );
+        return placeDTOList;
+    }
+
+    public List<PlaceDTO> getPlacesByCityAndAddress(String city, String address)
+    {
+        List<Place> placeList = placeRepository
+                .findPlacesByCityAndAddress(city, address);
+
+        List<PlaceDTO> placeDTOList = modelMapper.map(
+                placeList, new TypeToken<List<PlaceDTO>>() {
+                }.getType()
+        );
+        return placeDTOList;
+    }
+
 }

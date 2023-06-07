@@ -67,4 +67,16 @@ public class PlaceController
         return artistService.getArtistsByPlaceId(placeId);
     }
 
+    @GetMapping(value = "/by_city/{city}")
+    public List<PlaceDTO> getPlacesByCity(@PathVariable String city)
+    {
+        return placeService.getPlacesByCityName(city);
+    }
+
+    @GetMapping(value = "/by_city/{city}/by_address/{address}")
+    public List<PlaceDTO> getPlacesByCityAndAddress(
+            @PathVariable String city, @PathVariable String address)
+    {
+        return placeService.getPlacesByCityAndAddress(city, address);
+    }
 }

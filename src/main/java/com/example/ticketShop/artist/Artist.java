@@ -39,4 +39,6 @@ public class Artist
             inverseJoinColumns = @JoinColumn(name = "place_id")
     )
     private List<Place> places;
+
+
 }

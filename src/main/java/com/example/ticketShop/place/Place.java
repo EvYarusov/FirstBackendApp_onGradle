@@ -2,6 +2,7 @@ package com.example.ticketShop.place;
 
 import com.example.ticketShop.artist.Artist;
 import com.example.ticketShop.event.Event;
+import com.example.ticketShop.genre.Genre;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;

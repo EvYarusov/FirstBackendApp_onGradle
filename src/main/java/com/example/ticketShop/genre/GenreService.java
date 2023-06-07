@@ -1,24 +1,24 @@
 package com.example.ticketShop.genre;
 
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
-public class GenreService
-{
+public class GenreService {
     private static final ModelMapper modelMapper = new ModelMapper();
 
     private GenreRepository genreRepository;
 
     @Autowired
-    public void setGenreRepository(GenreRepository genreRepository)
-    {
+    public void setGenreRepository(GenreRepository genreRepository) {
         this.genreRepository = genreRepository;
     }
 
-    public int createNewGenre(NewGenreDTO newGenreDTO)
-    {
+    public int createNewGenre(NewGenreDTO newGenreDTO) {
         Genre genre = modelMapper.map(newGenreDTO, Genre.class);
 
         int id = genreRepository.save(genre).getId();
@@ -26,14 +26,24 @@ public class GenreService
         return id;
     }
 
-    public GenreDTO getGenreById(int genreId)
-    {
+    public GenreDTO getGenreById(int genreId) {
         //TODO add the handling of exception
         Genre genre = genreRepository.findById(genreId).get();
 
         GenreDTO genreDTO = modelMapper.map(genre, GenreDTO.class);
 
         return genreDTO;
+    }
+
+    public List<GenreDTO> getGenresByGenreName(String name) {
+
+        List<Genre> genreList = genreRepository.findGenresByName(name);
+
+        List<GenreDTO> genreDTOList = modelMapper.map(
+                genreList, new TypeToken<List<GenreDTO>>() {
+                }.getType()
+        );
+        return genreDTOList;
     }
 
 }

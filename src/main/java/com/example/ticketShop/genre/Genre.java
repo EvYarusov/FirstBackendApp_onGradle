@@ -1,6 +1,7 @@
 package com.example.ticketShop.genre;
 
 import com.example.ticketShop.artist.Artist;
+import com.example.ticketShop.place.Place;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -24,4 +25,5 @@ public class Genre
 
     @OneToMany(mappedBy = "genre")
     private List<Artist> artists;
+
 }

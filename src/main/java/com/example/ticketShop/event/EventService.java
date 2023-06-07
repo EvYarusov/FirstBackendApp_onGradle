@@ -57,15 +57,46 @@ public class EventService
         return id;
     }
 
-    public List<EventDTO> getEvents(String cityFilter)
+    public List<EventDTO> getEventsByCity(String cityFilter)
     {
-        List<Event> allEvents = eventRepository.findAll();
+        List<Event> eventList = new ArrayList<>();
 
-        List<EventDTO> resultList = modelMapper.map(
-                allEvents, new TypeToken<List<EventDTO>>(){}.getType()
+        if (cityFilter.equalsIgnoreCase("all"))
+        {
+            eventList = eventRepository.findAll();
+        }
+        else
+        {
+            eventList = eventRepository.findEventsFilteredByCity(cityFilter);
+        }
+
+        List<EventDTO> eventDTOList = modelMapper.map(
+                eventList, new TypeToken<List<EventDTO>>() {
+                }.getType()
         );
 
-        return resultList;
+        return eventDTOList;
+    }
+
+    public List<EventDTO> getEventsByGenre(String genreName)
+    {
+        List<Event> eventList = new ArrayList<>();
+
+        if (genreName.equalsIgnoreCase("all"))
+        {
+            eventList = eventRepository.findAll();
+        }
+        else
+        {
+            eventList = eventRepository.findEventsFilteredByGenreName(genreName);
+        }
+
+        List<EventDTO> eventDTOList = modelMapper.map(
+                eventList, new TypeToken<List<EventDTO>>() {
+                }.getType()
+        );
+
+        return eventDTOList;
     }
 
     public EventDTO getEventById(int eventId)
@@ -124,7 +155,8 @@ public class EventService
         List<Event> eventsList = place.getEvents();
 
         List<EventDTO> eventDtoList = modelMapper.map(
-                eventsList, new TypeToken<List<EventDTO>>(){}.getType()
+                eventsList, new TypeToken<List<EventDTO>>() {
+                }.getType()
         );
 
         return eventDtoList;
@@ -137,7 +169,8 @@ public class EventService
         List<Event> eventList = artist.getEvents();
 
         List<EventDTO> eventDTOList = modelMapper.map(
-                eventList, new TypeToken<List<EventDTO>>(){}.getType()
+                eventList, new TypeToken<List<EventDTO>>() {
+                }.getType()
         );
         return eventDTOList;
     }

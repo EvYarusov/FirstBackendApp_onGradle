@@ -36,13 +36,13 @@ public class ArtistController
         this.artistService = artistService;
     }
 
-    @Operation(summary = "Get all artists.",
+    @Operation(summary = "Get artists by genre.",
             description = "Get all artists filtered by genre name.")
     @GetMapping
-    public List<ArtistDTO> listArtists(@RequestParam(
+    public List<ArtistDTO> getArtistsByGenre(@RequestParam(
             value = "genre", required = false, defaultValue = "all") String genre)
     {
-        return artistService.getArtists(genre);
+        return artistService.getArtistsByGenreName(genre);
     }
 
     @Operation(summary = "Get artist by ID.",
